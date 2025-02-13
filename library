@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .book {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        #searchBar {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Library</h1>
+    </header>
+    <div class="container">
+        <input type="text" id="searchBar" placeholder="Search for books...">
+        <div id="bookList">
+            <!-- Books will be dynamically added here -->
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Library. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const books = [
+            { title: "Book Title 1", author: "John Doe", genre: "Fiction" },
+            { title: "Book Title 2", author: "Jane Smith", genre: "Non-fiction" },
+            { title: "Book Title 3", author: "Alex Johnson", genre: "Fantasy" },
+            // Add more book entries as needed
+        ];
+
+        const bookList = document.getElementById('bookList');
+        const searchBar = document.getElementById('searchBar');
+
+        function displayBooks(filteredBooks) {
+            bookList.innerHTML = '';
+            filteredBooks.forEach(book => {
+                const bookDiv = document.createElement('div');
+                bookDiv.className = 'book';
+                bookDiv.innerHTML = `
+                    <h3>${book.title}</h3>
+                    <p>Author: ${book.author}</p>
+                    <p>Genre: ${book.genre}</p>
+                `;
+                bookList.appendChild(bookDiv);
+            });
+        }
+
+        searchBar.addEventListener('input', (e) => {
+            const searchText = e.target.value.toLowerCase();
+            const filteredBooks = books.filter(book => 
+                book.title.toLowerCase().includes(searchText) ||
+                book.author.toLowerCase().includes(searchText) ||
+                book.genre.toLowerCase().includes(searchText)
+            );
+            displayBooks(filteredBooks);
+        });
+
+        // Display all books initially
+        displayBooks(books);
+    </script>
+</body>
+</html>
